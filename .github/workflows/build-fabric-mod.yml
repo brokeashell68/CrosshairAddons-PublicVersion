@@ -10,24 +10,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout the repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Step 2: List files to verify gradlew exists
       - name: List repo files
         run: ls -al
 
+      # Step 3: Make gradlew executable
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
+      # Step 4: Setup Java
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 17
 
+      # Step 5: Build the mod
       - name: Build mod
         run: ./gradlew build
 
+      # Step 6: Upload the built JAR as artifact
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
