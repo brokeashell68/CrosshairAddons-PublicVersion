@@ -12,9 +12,9 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 import walksy.crosshairaddons.manager.ConfigManager;
 import walksy.crosshairaddons.manager.CrosshairRendererManager;
-import com.mojang.blaze3d.pipeline.RenderPipeline;
 
 @Mixin(DrawContext.class)
 public abstract class DrawContextMixin {
@@ -37,6 +37,20 @@ public abstract class DrawContextMixin {
 
     @Shadow
     protected abstract void drawSprite(Sprite sprite, int i, int j, int k, int l, int x, int y, int z, int width, int height);
+
+    // <-- NEW shadow for drawSpriteRegion (1.21.8)
+    @Shadow
+    private void drawSpriteRegion(RenderPipeline pipeline,
+                                  Sprite sprite,
+                                  int textureWidth,
+                                  int textureHeight,
+                                  int u,
+                                  int v,
+                                  int x,
+                                  int y,
+                                  int width,
+                                  int height,
+                                  int color);
 
     @Inject(method = "drawGuiTexture(Lnet/minecraft/util/Identifier;IIIIIIIII)V", at = @At("HEAD"), cancellable = true)
     private void drawCrosshairAttackIndicator(Identifier texture, int i, int j, int k, int l, int x, int y, int z, int width, int height, CallbackInfo ci) {
@@ -90,15 +104,3 @@ public abstract class DrawContextMixin {
     }
 
 }
-@Shadow
-private void drawSpriteRegion(com.mojang.blaze3d.pipeline.RenderPipeline pipeline,
-                              net.minecraft.client.texture.Sprite sprite,
-                              int textureWidth,
-                              int textureHeight,
-                              int u,
-                              int v,
-                              int x,
-                              int y,
-                              int width,
-                              int height,
-                              int color);
