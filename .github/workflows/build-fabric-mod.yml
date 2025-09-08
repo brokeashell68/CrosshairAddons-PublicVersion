@@ -11,25 +11,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout the repo
+      # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2️⃣ Set up Java 17
-      - name: Set up Java
+      # Step 2: Set up Java 17
+      - name: Set up Java 17
         uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 17
 
-      # 3️⃣ Build using Gradle action
-      - name: Build Fabric Mod
+      # Step 3: Use Gradle Build Action (no need to manually run gradlew)
+      - name: Run Gradle Build
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
 
-      # 4️⃣ Upload the .jar as an artifact
-      - name: Upload artifact
+      # Step 4: Upload the resulting .jar file
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: CrosshairAddons-1.21.8
