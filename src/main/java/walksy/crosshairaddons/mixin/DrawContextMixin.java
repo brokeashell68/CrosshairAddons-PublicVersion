@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import walksy.crosshairaddons.manager.ConfigManager;
 import walksy.crosshairaddons.manager.CrosshairRendererManager;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 
 @Mixin(DrawContext.class)
 public abstract class DrawContextMixin {
@@ -89,3 +90,15 @@ public abstract class DrawContextMixin {
     }
 
 }
+@Shadow
+private void drawSpriteRegion(com.mojang.blaze3d.pipeline.RenderPipeline pipeline,
+                              net.minecraft.client.texture.Sprite sprite,
+                              int textureWidth,
+                              int textureHeight,
+                              int u,
+                              int v,
+                              int x,
+                              int y,
+                              int width,
+                              int height,
+                              int color);
