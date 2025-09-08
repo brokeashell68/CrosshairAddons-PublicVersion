@@ -2,8 +2,7 @@ name: Build Fabric Mod
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -11,24 +10,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout your repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Step 2: Make gradlew executable (fixes "cannot execute" error)
       - name: Grant execute permission for gradlew
-        run: chmod +x ./gradlew   # <-- ensures gradlew can run
+        run: chmod +x ./gradlew
 
-      - name: Set up Java 17
+      # Step 3: Set up Java 17
+      - name: Set up Java
         uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 17
 
+      # Step 4: Build the mod
       - name: Build mod
         run: ./gradlew build
 
+      # Step 5: Upload the built jar as an artifact
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: CrosshairAddons-1.21.8
           path: build/libs/*.jar
-          
+
