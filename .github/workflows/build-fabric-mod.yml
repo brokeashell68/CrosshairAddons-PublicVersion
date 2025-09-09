@@ -16,9 +16,10 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - name: List directory contents and check gradlew permissions
+      - name: List the directory structure
         run: |
-          ls -l gradlew  # Check if gradlew has execute permissions
+          echo "Listing all files in the repository:"
+          ls -lR  # List files recursively to make sure gradlew is where it should be
 
       - name: Make gradlew executable
         run: chmod +x gradlew
