@@ -16,12 +16,21 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - name: List all files in the repo
+      - name: List all files in the repository
         run: |
           echo "Listing all files in the repository:"
-          ls -lR  # List all files recursively to ensure gradlew is in the right place
+          ls -lR # List files recursively to ensure gradlew is there
 
-      - name: Make gradlew executable
+      - name: Check if gradlew exists in the repository
+        run: |
+          if [ -f "./gradlew" ]; then
+            echo "gradlew is located at the root of the repo."
+          else
+            echo "gradlew is missing! Check if it's at the root directory.";
+            exit 1;
+          fi
+
+      - name: Make gradlew executable (again)
         run: chmod +x gradlew  # Ensure gradlew is executable
 
       - name: Verify gradlew permissions
