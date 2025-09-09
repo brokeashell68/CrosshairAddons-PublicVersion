@@ -16,6 +16,10 @@ jobs:
           distribution: temurin
           java-version: 21
 
+      - name: List directory contents and check gradlew permissions
+        run: |
+          ls -l gradlew  # Check if gradlew has execute permissions
+
       - name: Make gradlew executable
         run: chmod +x gradlew
 
@@ -27,4 +31,3 @@ jobs:
         with:
           name: CrosshairAddons-1.21.8
           path: build/libs/*.jar
-
