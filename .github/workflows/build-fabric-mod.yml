@@ -16,19 +16,19 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - name: List directory structure and check gradlew
+      - name: List all files in the repo
         run: |
           echo "Listing all files in the repository:"
-          ls -lR  # List files recursively to make sure gradlew is there
+          ls -lR  # List all files recursively to ensure gradlew is in the right place
 
-      - name: Make gradlew executable (again)
-        run: chmod +x gradlew
+      - name: Make gradlew executable
+        run: chmod +x gradlew  # Ensure gradlew is executable
 
       - name: Verify gradlew permissions
-        run: ls -l gradlew  # Check permissions of gradlew after chmod
+        run: ls -l gradlew  # Confirm gradlew has executable permissions
 
       - name: Build with Gradle
-        run: ./gradlew build --stacktrace
+        run: ./gradlew build --stacktrace  # Attempt the build again
 
       - name: Upload built jar
         uses: actions/upload-artifact@v4
