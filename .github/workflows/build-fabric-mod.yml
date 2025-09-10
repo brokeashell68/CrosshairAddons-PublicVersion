@@ -16,33 +16,23 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - name: List all files in the repository
+      - name: List the current directory and check gradlew
         run: |
-          echo "Listing all files in the repository:"
-          ls -lR  # List files recursively to ensure gradlew is there
-
-      - name: Check if gradlew exists in the repository
-        run: |
-          if [ -f "./gradlew" ]; then
-            echo "gradlew is located at the root of the repo."
-          else
-            echo "gradlew is missing! Check if it's at the root directory."
-            exit 1
-          fi
+          echo "Listing current directory and checking gradlew permissions:"
+          pwd  # Print the current directory
+          ls -l  # List files in the current directory
+          ls -l gradlew  # Check gradlew permissions
 
       - name: Make gradlew executable (again)
-        run: chmod +x gradlew  # Ensure gradlew is executable
-
-      - name: Verify gradlew permissions
-        run: ls -l gradlew  # Confirm gradlew has executable permissions
+        run: chmod +x gradlew  # Make sure gradlew is executable
 
       - name: Print full path of gradlew
         run: |
           echo "Full path of gradlew:"
-          realpath gradlew  # Display full path to gradlew
+          realpath gradlew  # Display full path of gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build --stacktrace  # Attempt the build again
+        run: ./gradlew build --stacktrace  # Try building again
 
       - name: Upload built jar
         uses: actions/upload-artifact@v4
