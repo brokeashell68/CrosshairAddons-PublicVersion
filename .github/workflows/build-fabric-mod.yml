@@ -19,9 +19,9 @@ jobs:
       - name: List the current directory and check gradlew
         run: |
           echo "Listing current directory and checking gradlew permissions:"
-          pwd  # Print the current directory
-          ls -l  # List files in the current directory
-          ls -l gradlew  # Check gradlew permissions
+          pwd
+          ls -l
+          ls -l gradlew
 
       - name: Make gradlew executable (again)
         run: chmod +x gradlew
@@ -29,7 +29,7 @@ jobs:
       - name: Print full path of gradlew
         run: |
           echo "Full path of gradlew:"
-          realpath gradlew  # Display full path of gradlew
+          realpath gradlew
 
       - name: Build with Gradle
         run: ./gradlew build --stacktrace
