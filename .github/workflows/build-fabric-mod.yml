@@ -24,7 +24,7 @@ jobs:
           ls -l gradlew  # Check gradlew permissions
 
       - name: Make gradlew executable (again)
-        run: chmod +x gradlew  # Make sure gradlew is executable
+        run: chmod +x gradlew
 
       - name: Print full path of gradlew
         run: |
@@ -32,7 +32,7 @@ jobs:
           realpath gradlew  # Display full path of gradlew
 
       - name: Build with Gradle
-        run: ./gradlew build --stacktrace  # Try building again
+        run: ./gradlew build --stacktrace
 
       - name: Upload built jar
         uses: actions/upload-artifact@v4
