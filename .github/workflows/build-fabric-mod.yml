@@ -16,23 +16,23 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - name: List the current directory and check gradlew
+      - name: Print current directory and check gradlew location
         run: |
-          echo "Listing current directory and checking gradlew permissions:"
+          echo "Current working directory:"
           pwd
-          ls -l
-          ls -l gradlew
+          echo "Listing all files in the repository:"
+          ls -lR  # List all files recursively
+          echo "Listing gradlew file permissions:"
+          ls -l gradlew  # Check gradlew permissions
 
       - name: Make gradlew executable (again)
         run: chmod +x gradlew
 
-      - name: Print full path of gradlew
-        run: |
-          echo "Full path of gradlew:"
-          realpath gradlew
+      - name: Verify gradlew permissions
+        run: ls -l gradlew  # Confirm gradlew is executable
 
       - name: Build with Gradle
-        run: ./gradlew build --stacktrace
+        run: ./gradlew build --stacktrace  # Attempt build again
 
       - name: Upload built jar
         uses: actions/upload-artifact@v4
